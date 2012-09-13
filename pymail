@@ -1,0 +1,49 @@
+#!/usr/bin/python
+
+import sys
+import datetime,random
+import time
+
+#print sys.argv
+
+PYMAIL_PATH='/opt/mail/log/'
+TIME = str(datetime.datetime.fromtimestamp(time.time())).replace(' ','-')
+SUCCESS = PYMAIL_PATH+'openlog-noargs'+TIME+'success'+'.log'
+FAIL = PYMAIL_PATH+'openlog-args'+TIME+'failed'+'.log'
+
+
+def readMail():
+	result = ''
+	for line in sys.stdin.readline():
+		result = result + line 
+	return result
+
+args_length = str(len(sys.argv))
+inline = readMail()
+
+
+
+if len(sys.argv) < 2:
+   print 'Usage pymail %parameter%'
+   f = open(SUCCESS,'w')
+   f.write('Args: '+args_length)
+   f.write(inline)
+   f.close()
+
+else:   
+   #f = open(PYMAIL_PATH+'openlog'+str(datetime.datetime.fromtimestamp(time.time())).replace(' ','-')+SUCCESS_MESSAGE+'.log','w')
+   f =  open(FAIL,'w')
+   f.write('Args: '+args_length)
+   f.write(inline)
+   f.close()
+   #randomname = str(random.random()*10)
+   #filename = str(datetime.date.today())+'-'+randomname[2:4]+'.log'
+   #f = open(PYMAIL_PATH+filename,'w')
+   #f.write(sys.argv)
+   #f.write(sys.argv[1])
+   #f.write(sys.stdin.readlines())
+   #f.close()   
+
+   
+
+
